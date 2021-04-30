@@ -71,6 +71,7 @@ public class JWTValidatorMediator extends AbstractMediator {
 					.setAllowedClockSkewInSeconds(30) // allow some leeway in validating time based claims to account
 														// for clock skew
 					.setVerificationKeyResolver(httpsJwksKeyResolver) // verify the signature with the public key
+					.setSkipDefaultAudienceValidation() // do not verifyy audience
 					.setJwsAlgorithmConstraints( // only allow the expected signature algorithm(s) in the given context
 							ConstraintType.PERMIT, AlgorithmIdentifiers.RSA_USING_SHA256); // which is only RS256 here
 					
