@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.vabavara.synapse.mediators.authentication</groupId>
   <artifactId>JWTValidatorMediator</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>bundle</packaging>
   <name>JWTValidatorMediator</name>
   <description>JWTValidatorMediator</description>

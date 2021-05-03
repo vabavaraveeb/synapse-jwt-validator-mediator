@@ -33,6 +33,11 @@ public class JWTValidatorMediator extends AbstractMediator {
 	 * Access token to verify.
 	 */
 	private String accessToken = null;
+	
+	/**
+	 * Stores validation result. true for pass, false for fail.
+	 */
+	private boolean validationResult = false;
 
 	public boolean mediate(MessageContext context) {
 		SynapseLog log = getLog(context);
@@ -86,8 +91,7 @@ public class JWTValidatorMediator extends AbstractMediator {
 				// InvalidJwtException will be thrown, if the JWT failed processing or
 				// validation in anyway.
 				// Hopefully with meaningful explanations(s) about what went wrong.
-				if(isTraceOrDebugOn)
-					log.traceOrDebugWarn("Invalid JWT! " + e);
+				log.auditLog("Invalid JWT! " + e);
 
 				// Programmatic access to (some) specific reasons for JWT invalidity is also
 				// possible
@@ -99,12 +103,14 @@ public class JWTValidatorMediator extends AbstractMediator {
 				}
 				context.setProperty(HTTP_SC, "401");
 
-				return false;
+				this.setValidationResult(false);
+				return true;
 			}
 
 			if(isTraceOrDebugOn) {
 				log.traceOrDebug("End: OIDC mediator");
 			}
+			this.setValidationResult(true);
 			return true;
 		} catch (Exception e) {
 			log.error("Error occurred while processing the message");
@@ -112,6 +118,7 @@ public class JWTValidatorMediator extends AbstractMediator {
 			if(isTraceOrDebugOn) {
 				log.traceOrDebug(e);	
 			}
+			this.setValidationResult(false);
 			return false;
 		}
 	}
@@ -130,6 +137,14 @@ public class JWTValidatorMediator extends AbstractMediator {
 
 	public void setJwksUrl(String jwksUrl) {
 		this.jwksUrl = jwksUrl;
+	}
+
+	public boolean isValidationResult() {
+		return validationResult;
+	}
+
+	public void setValidationResult(boolean validationResult) {
+		this.validationResult = validationResult;
 	}
 
 	

@@ -11,17 +11,19 @@ Just copy the jar and jose4j jar (see [Dependencies](#Dependencies)) into WSO2 l
 1. Add a class mediator to the sequence.
 2. Specify  `eu.vabavara.synapse.mediators.authentication.JWTValidatorMediator` as the class name.
 3. Add properties to configure the behaviour of the handler:
-    * accessToken - Access token to validate.
-    * jwksUrl - URIs of the keyws page of your auhtentication provider. This URI is usually published in `\[Issuer URL\]/.well-known/openid-configuration` resource.
+    * `accessToken` - Access token to validate.
+    * `jwksUrl` - URIs of the keyws page of your auhtentication provider. This URI is usually published in `<Issuer URL>/.well-known/openid-configuration` resource.
+    * `validationResult` - Boolean value where the mediator writes the validation result. `true` for valid tokens and `false` for invalid tokens or other validation errors. Error details can be found in `ERROR_MESSAGE`context variable for some validation errors.
     ![Example of mediator properties in IntegrationStudio](doc/configure_class_mediator.png)
     ```xml
     <!-- Example of configuration with Azure AD. -->
     <class description="Validate token" name="eu.vabavara.synapse.mediators.authentication.JWTValidatorMediator">
         <property expression="substring($trp:Authorization, 8)" name="accessToken"/>
         <property name="jwksUrl" value="https://login.microsoftonline.com/common/discovery/keys"/>
+        <property name="validationResult" expression="$ctx:istokenvalid"/>
     </class>
     ```
-3. The mediator will fault the sequence and specify HTTP 401 Unauthorized response should be returned in case the token validaion fails. It is up to the application to conduct further checks (e.g. validate issuer, audience, application and subject).
+3. The mediator will specify HTTP 401 Unauthorized response should be returned in case the token validaion fails. It is up to the application to conduct further checks (e.g. validate issuer, audience, application and subject).
 
 ## Dependencies
 
