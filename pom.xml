@@ -17,6 +17,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  <distributionManagement>
+		<repository>
+		  <id>github</id>
+		  <name>GitHub OWNER Apache Maven Packages</name>
+		  <url>https://maven.pkg.github.com/vabavaraveeb/synapse-jwt-validator-mediator</url>
+		</repository>
+	 </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>org.apache.synapse</groupId>
