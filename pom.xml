@@ -5,7 +5,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>eu.vabavara.synapse.mediators.authentication</groupId>
-  <artifactId>JWTValidatorMediator</artifactId>
+  <artifactId>jwtvalidatormediator</artifactId>
   <version>1.1.0</version>
   <packaging>bundle</packaging>
   <name>JWTValidatorMediator</name>
